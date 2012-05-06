@@ -8,7 +8,9 @@
 </head>
 <body>
 <h1>CORS on chrome test page</h1>
+
 <h2>Static content:</h2>
+<p>Port: {{ settings.port }}</p>
 <h3>Plain old images:</h3>
 Image with CORS enabled:
 <img src="cors.png"/>
@@ -23,13 +25,16 @@ Image with CORS enabled:
 </div>
 <div class="clearer"></div>
 <a href="javascript://nop" onclick="">Show content below:</a>
+
 <div class="dynamic-content-wrapper">
     <h2>Dynamically shown content:</h2>
+
     <h3>Plain old images:</h3>
     <img src="cors.png"/>
     <img src="no-cors.png" alt=""/>
 
     <h3>CSS background:</h3>
+
     <div class="cors-bg">
     </div>
     <div class="no-cors-bg">

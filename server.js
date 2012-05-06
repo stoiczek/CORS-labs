@@ -10,33 +10,81 @@ var express = require('express');
 var app = express.createServer();
 var log4js = require('log4js');
 var log = log4js.getLogger();
+var fs = require('fs');
+var jinjs = require('jinjs');
+jinjs.registerExtension('.tmpl');
+
 log.debug("Log initialized, setting up the server application");
 
-app.get('/', function (req, res) {
+
+// ==========================================================================================
+// Functions for setting things up
+// ==========================================================================================
+
+/**
+ * Parses configuration file and returns hash with the settings.
+ *
+ * @param file file to be parsed.
+ * @return {*} settings hash
+ */
+function parseSettings(file) {
+    var content = fs.readFileSync(file, 'utf-8');
+    return JSON.parse(content);
+}
+
+function setupRoutes(app) {
+    app.get('/', index);
+    app.get('/no-cors.png', noCorsPNG);
+    app.get('/cors.png', corsPNG);
+    app.get('/all.css', allCss);
+}
+
+function setupTemplates() {
+    return {
+        'index.html':require('./index.html.tmpl')
+    };
+}
+
+// ==========================================================================================
+// Views
+// ==========================================================================================
+
+function index(req, res) {
     log.debug("Got get '/' request");
-    res.sendfile('index.html')
+    var template = templates['index.html'];
+    var content = template.render({settings:settings});
+    res.send(content, {'Content-Type':'text/html'}, 200);
 
-});
+}
 
-app.get('/no-cors.png', function (req, res) {
+
+function noCorsPNG(req, res) {
     log.debug("Got get '/no-cors.png' request");
     res.sendfile('Free.png')
 
-});
+}
 
-app.get('/cors.png', function (req, res) {
+function corsPNG(req, res) {
     log.debug("Got get '/cors.png' request");
     res.header('Access-Control-Allow-Origin', '*');
     res.sendfile('Free.png')
 
-});
+}
 
-app.get('/all.css', function (req, res) {
+function allCss(req, res) {
     log.debug("Got get '/all.css' request");
     res.sendfile('all.css')
 
-});
+}
 
-log.debug("Server app configured, starting.");
+// ==========================================================================================
+// Server startup code
+// ==========================================================================================
 
-app.listen(8080);
+var settingsFile = process.argv.length > 2 ? process.argv[2] : __dirname + '/def_config.json';
+var settings = parseSettings(settingsFile);
+var templates = setupTemplates();
+setupRoutes(app, settings);
+
+log.debug("Server application configured. Listening on port: " + settings.port);
+app.listen(settings.port);

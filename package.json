@@ -1,0 +1,40 @@
+{
+    "name":"cors-labs",
+    "preferGlobal":"true",
+    "version":"0.0.1",
+    "author":"Ted Kozak <stoiczek@gmail.com>",
+    "description":"A simple web-app built on top of express to experiment with CORS",
+    "contributors":[
+
+    ],
+    "bin":{
+
+    },
+    "scripts":{
+
+    },
+    "repository":{
+        "type":"git",
+        "url":"git://github.com/stoiczek/CORS-labs.git"
+    },
+    "keywords":[
+        "cors",
+        "http",
+        "server"
+    ],
+    "dependencies":{
+        "express":"*",
+        "log4js":"*",
+        "jinjs":"*"
+    },
+    "noAnalyze":false,
+    "devDependencies":{
+
+    },
+    "bundleDependencies":[
+    ],
+    "license":"MIT",
+    "engine":{
+        "node":">=0.4"
+    }
+}
