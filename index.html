@@ -1,0 +1,41 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <title>Blah test file</title>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="all.css"/>
+</head>
+<body>
+<h1>CORS on chrome test page</h1>
+<h2>Static content:</h2>
+<h3>Plain old images:</h3>
+Image with CORS enabled:
+<img src="cors.png"/>
+Image with CORS enabled:
+<img src="no-cors.png" alt=""/>
+
+<h3>CSS background:</h3>
+
+<div class="cors-bg">
+</div>
+<div class="no-cors-bg">
+</div>
+<div class="clearer"></div>
+<a href="javascript://nop" onclick="">Show content below:</a>
+<div class="dynamic-content-wrapper">
+    <h2>Dynamically shown content:</h2>
+    <h3>Plain old images:</h3>
+    <img src="cors.png"/>
+    <img src="no-cors.png" alt=""/>
+
+    <h3>CSS background:</h3>
+    <div class="cors-bg">
+    </div>
+    <div class="no-cors-bg">
+    </div>
+
+</div>
+</body>
+
+</html>
