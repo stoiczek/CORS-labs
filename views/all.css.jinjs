@@ -1,0 +1,38 @@
+.content-wrapper {
+    width: 960px;
+    margin: 50px auto;
+}
+
+.dynamic-content-wrapper {
+    display: none;
+}
+
+.local-bg-cors, .local-bg-nocors, .cors-bg, .no-cors-bg, img {
+    width: 128px;
+    height: 128px;
+}
+
+.local-bg-cors {
+    background: url(cors.png)
+}
+
+.local-bg-nocors {
+    background: url(no-cors.png)
+}
+
+.cors-bg {
+    background: url({{ settings.assets_url_pfx }}/cors.png )
+}
+
+.no-cors-bg {
+    background: url({{ settings.assets_url_pfx }}/no-cors.png )
+}
+
+.clearer {
+    clear: both;
+}
+
+.content-item {
+    float: left;
+    margin: 5px;
+}
