@@ -1,4 +1,5 @@
 {
     "port":6543,
-    "assets_url_pfx":"http://blahblah"
+    "assets_url_pfx":"http://localhost:6543",
+    "reloadTemplates":true
 }

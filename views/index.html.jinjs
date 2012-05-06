@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Blah test file</title>
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="all.css.tmpl"/>
+  <link rel="stylesheet" type="text/css" href="bootstrap.min.css"/>
+
+</head>
+<body>
+
+<div class="content-wrapper">
+  <h1>CORS on chrome test page</h1>
+
+
+  <h3>Image tag</h3>
+  <h4>Direct access:</h4>
+
+  <div class="content-item">
+    <p>Image with CORS enabled:</p>
+    <img src="cors.png"/>
+  </div>
+
+  <div class="content-item">
+    <p>Image with CORS disabled:</p>
+    <img src="no-cors.png" alt=""/>
+  </div>
+  <div class="clearer"></div>
+
+  <a href="javascript://nop" onclick="$('#directImgDynamicWrapper').show()">Show dynamic content</a>
+
+  <div id="directImgDynamicWrapper" style="display: none">
+    <div class="content-item">
+      <p>Image with CORS enabled:</p>
+      <img src="cors.png"/>
+    </div>
+
+    <div class="content-item">
+      <p>Image with CORS disabled:</p>
+      <img src="no-cors.png" alt=""/>
+    </div>
+    <div class="clearer"></div>
+  </div>
+
+
+  <h4>CORS access:</h4>
+
+  <div class="content-item">
+    <p>Image with CORS enabled:</p>
+    <img src="{{ settings.assets_url_pfx }}/cors.png"/>
+  </div>
+
+  <div class="content-item">
+    <p>Image with CORS disabled:</p>
+    <img src="{{ settings.assets_url_pfx }}/no-cors.png" alt=""/>
+  </div>
+  <div class="clearer"></div>
+
+  <a href="javascript://nop" onclick="$('#corsImgDynamicWrapper').show()">Show dynamic content</a>
+
+  <div id="corsImgDynamicWrapper" style="display: none">
+    <div class="content-item">
+      <p>Image with CORS enabled:</p>
+      <img src="{{ settings.assets_url_pfx }}/cors.png" alt=""/>
+    </div>
+
+    <div class="content-item">
+      <p>Image with CORS disabled:</p>
+      <img src="{{ settings.assets_url_pfx }}/no-cors.png" alt=""/>
+    </div>
+    <div class="clearer"></div>
+  </div>
+
+  <h3>CSS background:</h3>
+
+  <h4>Direct access:</h4>
+
+  <div class="content-item">
+    <p>Image with CORS enabled:</p>
+
+    <div class="local-bg-cors"></div>
+
+  </div>
+
+  <div class="content-item">
+    <p>Image with CORS disabled:</p>
+
+    <div class="local-bg-nocors"></div>
+  </div>
+  <div class="clearer"></div>
+
+  <a href="javascript://nop" onclick="$('#directBgDynamicWrapper').show()">Show dynamic content</a>
+
+  <div id="directBgDynamicWrapper" style="display: none">
+    <div class="content-item">
+      <p>Image with CORS enabled:</p>
+
+      <div class="local-bg-cors"></div>
+
+    </div>
+
+    <div class="content-item">
+      <p>Image with CORS disabled:</p>
+
+      <div class="local-bg-nocors"></div>
+    </div>
+    <div class="clearer"></div>
+  </div>
+
+
+  <h4>CORS access:</h4>
+
+  <div class="content-item">
+    <p>Image with CORS enabled:</p>
+    <div class="cors-bg"></div>
+  </div>
+
+  <div class="content-item">
+    <p>Image with CORS disabled:</p>
+    <div class="no-cors-bg"></div>
+  </div>
+  <div class="clearer"></div>
+
+  <a href="javascript://nop" onclick="$('#corsBgDynamicWrapper').show()">Show dynamic content</a>
+
+  <div id="corsBgDynamicWrapper" style="display: none">
+    <div class="content-item">
+      <p>Image with CORS enabled:</p>
+      <div class="cors-bg"></div>
+    </div>
+
+    <div class="content-item">
+      <p>Image with CORS disabled:</p>
+      <div class="no-cors-bg"></div>
+    </div>
+    <div class="clearer"></div>
+  </div>
+
+
+</div>
+</div>
+</body>
+
+</html>

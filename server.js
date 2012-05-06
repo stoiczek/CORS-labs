@@ -12,10 +12,11 @@ var log4js = require('log4js');
 var log = log4js.getLogger();
 var fs = require('fs');
 var jinjs = require('jinjs');
-jinjs.registerExtension('.tmpl');
+
+//var TMPL_SUFFIX = '.tmpl';
 
 log.debug("Log initialized, setting up the server application");
-
+var templates = false;
 
 // ==========================================================================================
 // Functions for setting things up
@@ -32,18 +33,35 @@ function parseSettings(file) {
     return JSON.parse(content);
 }
 
-function setupRoutes(app) {
+function setupRoutes(app, settings) {
     app.get('/', index);
     app.get('/no-cors.png', noCorsPNG);
     app.get('/cors.png', corsPNG);
-    app.get('/all.css', allCss);
+    app.get('/all.css.tmpl', allCss);
+    app.get('/bootstrap.min.css', bootstrapCss);
 }
+//
+//function setupTemplates(settings) {
+//    jinjs.registerExtension(TMPL_SUFFIX);
+//    if (settings.reloadTemplates) {
+//        return false;
+//    } else {
+//        return {
+//            'index.html':getTemplate('index.html'),
+//            'all.css':getTemplate('all.css')
+//        };
+//    }
+//}
 
-function setupTemplates() {
-    return {
-        'index.html':require('./index.html.tmpl')
-    };
-}
+//function getTemplate(name) {
+//    if (templates) {
+//        log.d("Getting template with name: " + name + " from cache");
+//        return templates[name];
+//    } else {
+//        log.debug("Loading template with name: " + name);
+//        return require('./' + name + TMPL_SUFFIX)
+//    }
+//}
 
 // ==========================================================================================
 // Views
@@ -51,10 +69,7 @@ function setupTemplates() {
 
 function index(req, res) {
     log.debug("Got get '/' request");
-    var template = templates['index.html'];
-    var content = template.render({settings:settings});
-    res.send(content, {'Content-Type':'text/html'}, 200);
-
+    res.render('index.html.jinjs', {settings:settings});
 }
 
 
@@ -72,9 +87,14 @@ function corsPNG(req, res) {
 }
 
 function allCss(req, res) {
-    log.debug("Got get '/all.css' request");
-    res.sendfile('all.css')
+    log.debug("Getting the all.css.jinjs");
+    res.header('Content-Type','text/css');
+    res.render('all.css.jinjs',{settings:settings})
+}
 
+function bootstrapCss(req, res) {
+    log.debug("Getting the bootstrap.css");
+    res.sendfile('bootstrap.min.css')
 }
 
 // ==========================================================================================
@@ -83,8 +103,11 @@ function allCss(req, res) {
 
 var settingsFile = process.argv.length > 2 ? process.argv[2] : __dirname + '/def_config.json';
 var settings = parseSettings(settingsFile);
-var templates = setupTemplates();
+//templates = setupTemplates(settings);
 setupRoutes(app, settings);
 
 log.debug("Server application configured. Listening on port: " + settings.port);
+app.set("view options", { layout:false });
+app.set('view engine', 'jinjs');
+app.disable('view cache');
 app.listen(settings.port);
